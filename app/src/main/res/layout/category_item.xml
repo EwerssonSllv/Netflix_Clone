@@ -10,29 +10,27 @@
 
     <TextView
         android:id="@+id/txt_title"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text="@string/category_1"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/black"
+        android:clipToPadding="false"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/txt_title"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"
-        tools:listitem="@layout/movie_item"
-        />
+        app:layout_constraintTop_toBottomOf="@id/txt_title"
+        tools:listitem="@layout/movie_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

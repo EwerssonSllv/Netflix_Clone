@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ewersson.netflixclone_app.model.Category
 
 
-class CategoryAdapter(private val categories: List<Category>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private val categories: List<Category>) :
+    RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -24,14 +26,15 @@ class CategoryAdapter(private val categories: List<Category>) : RecyclerView.Ada
         return categories.size
     }
 
-    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bind(category: Category){
+    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(category: Category) {
             val txtTitle: TextView = itemView.findViewById(R.id.txt_title)
             txtTitle.text = category.title
             val rvCategory: RecyclerView = itemView.findViewById(R.id.rv_category)
 
-            rvCategory.layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
-            rvCategory.adapter = MovieAdapter(category.movies)
+            rvCategory.layoutManager =
+                LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
+            rvCategory.adapter = MovieAdapter(category.movies, R.layout.movie_item)
 
         }
 
