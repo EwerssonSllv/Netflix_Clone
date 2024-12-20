@@ -29,7 +29,7 @@ class CategoryAdapter(private val categories: List<Category>) :
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(category: Category) {
             val txtTitle: TextView = itemView.findViewById(R.id.txt_title)
-            txtTitle.text = category.title
+            txtTitle.text = category.name
             val rvCategory: RecyclerView = itemView.findViewById(R.id.rv_category)
 
             rvCategory.layoutManager =
