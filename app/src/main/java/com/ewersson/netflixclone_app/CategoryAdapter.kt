@@ -40,4 +40,6 @@ class CategoryAdapter(private val categories: List<Category>) :
 
     }
 
+
+
 }
