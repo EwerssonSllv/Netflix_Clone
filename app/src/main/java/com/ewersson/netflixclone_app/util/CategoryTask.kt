@@ -43,8 +43,8 @@ class CategoryTask(private val callback: Callback) {
             try {
                 val requestURL = URL(url)
                 urlConnection = requestURL.openConnection() as HttpsURLConnection
-                urlConnection.readTimeout = 2000
-                urlConnection.connectTimeout = 2000
+                urlConnection.readTimeout = 10000
+                urlConnection.connectTimeout = 10000
 
                 val statusCode = urlConnection.responseCode
 
@@ -56,10 +56,7 @@ class CategoryTask(private val callback: Callback) {
                 buffer = BufferedInputStream(stream)
                 val jsonAsString = toString(buffer)
 
-                // Aqui você usa toCategories corretamente
                 val categories = toCategories(jsonAsString)
-
-                Log.i("Test", categories.toString())
 
                 handler.post {
                     (callback as Activity).runOnUiThread {
@@ -69,7 +66,6 @@ class CategoryTask(private val callback: Callback) {
 
             } catch (e: IOException) {
                 val message = e.message ?: "Unknown Error!"
-                Log.e("Test", e.message ?: "Unknown Error!", e)
 
                 handler.post {
                     (callback as Activity).runOnUiThread {

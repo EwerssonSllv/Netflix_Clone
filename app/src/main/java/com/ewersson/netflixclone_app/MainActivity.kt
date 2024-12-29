@@ -15,43 +15,40 @@ class MainActivity : AppCompatActivity(), CategoryTask.Callback {
 
     private lateinit var progress: ProgressBar
 
+    private lateinit var adapter: CategoryAdapter
+
+    private val categories = mutableListOf<Category>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         progress = findViewById(R.id.progress_main)
 
-
-        if (::progress.isInitialized) {
-            Log.d("Test", "ProgressBar inicializada com sucesso.")
-        } else {
-            Log.d("Test", "ProgressBar não foi inicializada.")
-        }
-
-        val categories = mutableListOf<Category>()
-
         val rv: RecyclerView = findViewById(R.id.rv_main)
-        val adapter: CategoryAdapter = CategoryAdapter(categories)
+        adapter = CategoryAdapter(categories)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
 
-        val url = "https://netflix-api-lq23.onrender.com/categorie/all"
+        val url = "https://netflix-api-lq23.onrender.com/categories/all"
         CategoryTask(this).execute(url)
 
     }
 
     override fun onPreExecute() {
-        Log.d("Test", "ProgressBar visibilidade: VISIBLE")
         progress.visibility = View.VISIBLE
     }
 
     override fun onResult(categories: List<Category>) {
-        Log.d("Test", "ProgressBar visibilidade: GONE")
+        this.categories.clear()
+        this.categories.addAll(categories)
+
+        adapter.notifyDataSetChanged() // Force the adapter to call the onBindViewHolder again
+
         progress.visibility = View.GONE
     }
 
     override fun onFailure(message: String) {
-        Log.d("Test", "ProgressBar visibilidade: GONE")
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         progress.visibility = View.GONE
     }
