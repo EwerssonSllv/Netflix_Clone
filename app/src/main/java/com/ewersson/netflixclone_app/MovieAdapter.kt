@@ -1,5 +1,6 @@
 package com.ewersson.netflixclone_app
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -7,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import com.ewersson.netflixclone_app.model.Movie
+import com.ewersson.netflixclone_app.util.DownloadImageTask
 
 class MovieAdapter(
     private val movies: List<Movie>,
     @LayoutRes private val layoutId: Int
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         return MovieViewHolder(view)
@@ -30,10 +33,14 @@ class MovieAdapter(
         fun bind(movie: Movie) {
             val imageCover: ImageView = itemView.findViewById(R.id.img_cover)
 
-            // TODO: change to URL by server
-            // imageCover.setImageResource(movie.coverUrl)
-        }
+            DownloadImageTask(object: DownloadImageTask.Callback{
+                override fun onResult(bitmap: Bitmap?) {
+                    imageCover.setImageBitmap(bitmap)
+                }
+            }).execute(movie.image)
 
+        }
     }
+
 
 }

@@ -3,7 +3,6 @@ package com.ewersson.netflixclone_app.util
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import com.ewersson.netflixclone_app.model.Category
 import com.ewersson.netflixclone_app.model.Movie
 import org.json.JSONArray
@@ -18,6 +17,7 @@ import javax.net.ssl.HttpsURLConnection
 class CategoryTask(private val callback: Callback) {
 
     private val handler = Handler(Looper.getMainLooper())
+    private val executor = Executors.newSingleThreadExecutor()
 
     interface Callback {
 
@@ -33,8 +33,6 @@ class CategoryTask(private val callback: Callback) {
         (callback as Activity).runOnUiThread {
             callback.onPreExecute()
         }
-
-        val executor = Executors.newSingleThreadExecutor()
 
         executor.execute {
             var urlConnection: HttpsURLConnection? = null
